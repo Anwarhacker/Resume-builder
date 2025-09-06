@@ -1,19 +1,29 @@
-import type { ResumeData } from "@/lib/types"
+import type { ResumeData } from "@/lib/types";
 
 interface MonochromeTemplateProps {
-  data: ResumeData
+  data: ResumeData;
 }
 
 export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
-  const { personalInfo, education, workExperience, skills, projects, achievements, certificates, hobbies } = data
+  const {
+    personalInfo,
+    education,
+    workExperience,
+    skills,
+    projects,
+    achievements,
+    certificates,
+    hobbies,
+  } = data;
 
-  const hasContent = (section: any[]) => section && section.length > 0
+  const hasContent = (section: any[]) => section && section.length > 0;
 
   return (
     <div
       className="bg-white text-black mx-auto font-mono text-xs leading-tight"
       style={{
-        width: "794px", // A4 width at 96 DPI
+        width: "100%",
+        maxWidth: "794px",
         minHeight: "1123px", // A4 height at 96 DPI
         padding: "10px",
         boxSizing: "border-box",
@@ -23,14 +33,20 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
       {/* Header */}
       <div className="border-4 border-black p-4 mb-6">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-2 tracking-widest">{personalInfo.fullName || "YOUR NAME"}</h1>
+          <h1 className="text-2xl font-bold mb-2 tracking-widest">
+            {personalInfo.fullName || "YOUR NAME"}
+          </h1>
           <div className="text-xs space-y-1">
             <div className="flex justify-center gap-4">
               {personalInfo.email && <span>EMAIL: {personalInfo.email}</span>}
               {personalInfo.phone && <span>PHONE: {personalInfo.phone}</span>}
             </div>
-            {personalInfo.location && <div>LOCATION: {personalInfo.location}</div>}
-            {personalInfo.linkedin && <div>LINKEDIN: {personalInfo.linkedin}</div>}
+            {personalInfo.location && (
+              <div>LOCATION: {personalInfo.location}</div>
+            )}
+            {personalInfo.linkedin && (
+              <div>LINKEDIN: {personalInfo.linkedin}</div>
+            )}
           </div>
         </div>
         {personalInfo.summary && (
@@ -46,7 +62,9 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
         {hasContent(workExperience) && (
           <div>
             <div className="bg-black text-white p-2 mb-4">
-              <h2 className="text-sm font-bold tracking-widest">WORK EXPERIENCE</h2>
+              <h2 className="text-sm font-bold tracking-widest">
+                WORK EXPERIENCE
+              </h2>
             </div>
             <div className="space-y-4">
               {workExperience.map((work) => (
@@ -59,7 +77,8 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
                       </div>
                     </div>
                     <div className="text-right text-xs">
-                      {work.startDate} - {work.current ? "PRESENT" : work.endDate}
+                      {work.startDate} -{" "}
+                      {work.current ? "PRESENT" : work.endDate}
                     </div>
                   </div>
                   {work.description && work.description.length > 0 && (
@@ -104,22 +123,25 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
         {hasContent(skills) && (
           <div>
             <div className="bg-black text-white p-2 mb-4">
-              <h2 className="text-sm font-bold tracking-widest">TECHNICAL SKILLS</h2>
+              <h2 className="text-sm font-bold tracking-widest">
+                TECHNICAL SKILLS
+              </h2>
             </div>
             <div className="grid grid-cols-1 gap-2">
               {Object.entries(
-                skills.reduce(
-                  (acc, skill) => {
-                    if (!acc[skill.category]) acc[skill.category] = []
-                    acc[skill.category].push(skill)
-                    return acc
-                  },
-                  {} as Record<string, typeof skills>,
-                ),
+                skills.reduce((acc, skill) => {
+                  if (!acc[skill.category]) acc[skill.category] = [];
+                  acc[skill.category].push(skill);
+                  return acc;
+                }, {} as Record<string, typeof skills>)
               ).map(([category, categorySkills]) => (
                 <div key={category} className="flex text-xs">
-                  <div className="w-24 font-bold">{category.toUpperCase()}:</div>
-                  <div>{categorySkills.map((skill) => skill.name).join(" | ")}</div>
+                  <div className="w-24 font-bold">
+                    {category.toUpperCase()}:
+                  </div>
+                  <div>
+                    {categorySkills.map((skill) => skill.name).join(" | ")}
+                  </div>
                 </div>
               ))}
             </div>
@@ -141,10 +163,13 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
                       {project.startDate} - {project.endDate}
                     </div>
                   </div>
-                  {project.description && <p className="text-xs mb-1">→ {project.description}</p>}
+                  {project.description && (
+                    <p className="text-xs mb-1">→ {project.description}</p>
+                  )}
                   {project.technologies && project.technologies.length > 0 && (
                     <div className="text-xs">
-                      <span className="font-bold">TECH:</span> {project.technologies.join(" | ")}
+                      <span className="font-bold">TECH:</span>{" "}
+                      {project.technologies.join(" | ")}
                     </div>
                   )}
                 </div>
@@ -158,14 +183,16 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
           {hasContent(certificates) && (
             <div>
               <div className="bg-black text-white p-2 mb-3">
-                <h2 className="text-xs font-bold tracking-widest">CERTIFICATIONS</h2>
+                <h2 className="text-xs font-bold tracking-widest">
+                  CERTIFICATIONS
+                </h2>
               </div>
               <div className="space-y-2">
                 {certificates.map((cert) => (
                   <div key={cert.id} className="text-xs">
                     <div className="font-bold">{cert.name}</div>
                     <div>
-                      {cert.issuer} | {cert.date}
+                      {cert.issuer} | {cert.issueDate}
                     </div>
                   </div>
                 ))}
@@ -176,13 +203,17 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
           {hasContent(achievements) && (
             <div>
               <div className="bg-black text-white p-2 mb-3">
-                <h2 className="text-xs font-bold tracking-widest">ACHIEVEMENTS</h2>
+                <h2 className="text-xs font-bold tracking-widest">
+                  ACHIEVEMENTS
+                </h2>
               </div>
               <div className="space-y-2">
                 {achievements.map((achievement) => (
                   <div key={achievement.id} className="text-xs">
                     <div className="font-bold">{achievement.title}</div>
-                    {achievement.description && <div>→ {achievement.description}</div>}
+                    {achievement.description && (
+                      <div>→ {achievement.description}</div>
+                    )}
                     {achievement.date && <div>({achievement.date})</div>}
                   </div>
                 ))}
@@ -196,10 +227,12 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
             <div className="bg-black text-white p-2 mb-3">
               <h2 className="text-xs font-bold tracking-widest">INTERESTS</h2>
             </div>
-            <div className="text-xs">{hobbies.map((hobby) => hobby.name).join(" | ")}</div>
+            <div className="text-xs">
+              {hobbies.map((hobby) => hobby.name).join(" | ")}
+            </div>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

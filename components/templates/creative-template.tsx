@@ -1,14 +1,21 @@
-import type { ResumeData } from "@/lib/types"
+import type { ResumeData } from "@/lib/types";
 
 interface CreativeTemplateProps {
-  data: ResumeData
+  data: ResumeData;
 }
 
 export function CreativeTemplate({ data }: CreativeTemplateProps) {
-  const { personalInfo, education, workExperience, skills, projects, achievements } = data
+  const {
+    personalInfo,
+    education,
+    workExperience,
+    skills,
+    projects,
+    achievements,
+  } = data;
 
   return (
-    <div className="bg-white text-gray-900 max-w-[8.5in] mx-auto relative overflow-hidden">
+    <div className="bg-white text-gray-900 w-full max-w-[8.5in] mx-auto relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-400 to-emerald-600 rounded-bl-full opacity-10"></div>
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-emerald-400 to-emerald-600 rounded-tr-full opacity-10"></div>
@@ -17,7 +24,9 @@ export function CreativeTemplate({ data }: CreativeTemplateProps) {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-block p-6 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl text-white mb-4">
-            <h1 className="text-3xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+            <h1 className="text-3xl font-bold mb-2">
+              {personalInfo.fullName || "Your Name"}
+            </h1>
             <div className="flex justify-center items-center gap-3 text-sm opacity-90">
               {personalInfo.email && <span>{personalInfo.email}</span>}
               {personalInfo.phone && <span>•</span>}
@@ -25,7 +34,9 @@ export function CreativeTemplate({ data }: CreativeTemplateProps) {
             </div>
           </div>
           {personalInfo.summary && (
-            <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed italic">"{personalInfo.summary}"</p>
+            <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed italic">
+              "{personalInfo.summary}"
+            </p>
           )}
         </div>
 
@@ -75,17 +86,16 @@ export function CreativeTemplate({ data }: CreativeTemplateProps) {
                 </h3>
                 <div className="space-y-3">
                   {Object.entries(
-                    skills.reduce(
-                      (acc, skill) => {
-                        if (!acc[skill.category]) acc[skill.category] = []
-                        acc[skill.category].push(skill)
-                        return acc
-                      },
-                      {} as Record<string, typeof skills>,
-                    ),
+                    skills.reduce((acc, skill) => {
+                      if (!acc[skill.category]) acc[skill.category] = [];
+                      acc[skill.category].push(skill);
+                      return acc;
+                    }, {} as Record<string, typeof skills>)
                   ).map(([category, categorySkills]) => (
                     <div key={category}>
-                      <h4 className="font-semibold text-sm text-emerald-600 mb-2">{category}</h4>
+                      <h4 className="font-semibold text-sm text-emerald-600 mb-2">
+                        {category}
+                      </h4>
                       <div className="flex flex-wrap gap-2">
                         {categorySkills.map((skill) => (
                           <span
@@ -112,12 +122,20 @@ export function CreativeTemplate({ data }: CreativeTemplateProps) {
                 <div className="space-y-3">
                   {education.map((edu) => (
                     <div key={edu.id} className="text-sm">
-                      <div className="font-semibold text-gray-800">{edu.degree}</div>
-                      <div className="text-emerald-600 font-medium">{edu.institution}</div>
+                      <div className="font-semibold text-gray-800">
+                        {edu.degree}
+                      </div>
+                      <div className="text-emerald-600 font-medium">
+                        {edu.institution}
+                      </div>
                       <div className="text-gray-500 text-xs">
                         {edu.startDate} - {edu.endDate}
                       </div>
-                      {edu.gpa && <div className="text-gray-500 text-xs">GPA: {edu.gpa}</div>}
+                      {edu.gpa && (
+                        <div className="text-gray-500 text-xs">
+                          GPA: {edu.gpa}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -146,20 +164,30 @@ export function CreativeTemplate({ data }: CreativeTemplateProps) {
                           <div className="bg-white border border-emerald-100 rounded-lg p-4 shadow-sm">
                             <div className="flex justify-between items-start mb-2">
                               <div>
-                                <h4 className="text-lg font-semibold text-gray-800">{work.position}</h4>
-                                <div className="text-emerald-600 font-medium">{work.company}</div>
+                                <h4 className="text-lg font-semibold text-gray-800">
+                                  {work.position}
+                                </h4>
+                                <div className="text-emerald-600 font-medium">
+                                  {work.company}
+                                </div>
                               </div>
                               <div className="text-right text-sm text-gray-500">
                                 <div>{work.location}</div>
                                 <div>
-                                  {work.startDate} - {work.current ? "Present" : work.endDate}
+                                  {work.startDate} -{" "}
+                                  {work.current ? "Present" : work.endDate}
                                 </div>
                               </div>
                             </div>
                             <div className="space-y-1 text-sm text-gray-700">
                               {work.description.map((desc, descIndex) => (
-                                <div key={descIndex} className="flex items-start">
-                                  <span className="text-emerald-400 mr-2 mt-1">▸</span>
+                                <div
+                                  key={descIndex}
+                                  className="flex items-start"
+                                >
+                                  <span className="text-emerald-400 mr-2 mt-1">
+                                    ▸
+                                  </span>
                                   <span>{desc}</span>
                                 </div>
                               ))}
@@ -187,12 +215,16 @@ export function CreativeTemplate({ data }: CreativeTemplateProps) {
                       className="bg-gradient-to-r from-gray-50 to-emerald-50 rounded-lg p-4 border border-emerald-100"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="text-lg font-semibold text-gray-800">{project.name}</h4>
+                        <h4 className="text-lg font-semibold text-gray-800">
+                          {project.name}
+                        </h4>
                         <div className="text-sm text-gray-500">
                           {project.startDate} - {project.endDate}
                         </div>
                       </div>
-                      <p className="text-sm text-gray-700 mb-3">{project.description}</p>
+                      <p className="text-sm text-gray-700 mb-3">
+                        {project.description}
+                      </p>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, index) => (
                           <span
@@ -212,5 +244,5 @@ export function CreativeTemplate({ data }: CreativeTemplateProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

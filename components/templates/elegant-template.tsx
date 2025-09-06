@@ -1,19 +1,28 @@
-import type { ResumeData } from "@/lib/types"
+import type { ResumeData } from "@/lib/types";
 
 interface ElegantTemplateProps {
-  data: ResumeData
+  data: ResumeData;
 }
 
 export function ElegantTemplate({ data }: ElegantTemplateProps) {
-  const { personalInfo, education, workExperience, skills, projects, certificates, hobbies } = data
+  const {
+    personalInfo,
+    education,
+    workExperience,
+    skills,
+    projects,
+    certificates,
+    hobbies,
+  } = data;
 
-  const hasContent = (section: any[]) => section && section.length > 0
+  const hasContent = (section: any[]) => section && section.length > 0;
 
   return (
     <div
       className="bg-white text-black mx-auto font-serif text-xs leading-relaxed"
       style={{
-        width: "794px",
+        width: "100%",
+        maxWidth: "794px",
         minHeight: "1123px",
         padding: "40px",
         boxSizing: "border-box",
@@ -32,7 +41,9 @@ export function ElegantTemplate({ data }: ElegantTemplateProps) {
           {personalInfo.location && <span>•</span>}
           {personalInfo.location && <span>{personalInfo.location}</span>}
         </div>
-        {(personalInfo.linkedin || personalInfo.github || personalInfo.website) && (
+        {(personalInfo.linkedin ||
+          personalInfo.github ||
+          personalInfo.website) && (
           <div className="flex justify-center items-center gap-4 text-xs mt-1">
             {personalInfo.linkedin && <span>{personalInfo.linkedin}</span>}
             {personalInfo.github && <span>•</span>}
@@ -67,7 +78,9 @@ export function ElegantTemplate({ data }: ElegantTemplateProps) {
                   {work.startDate} - {work.current ? "Present" : work.endDate}
                 </span>
               </div>
-              <div className="text-xs italic mb-2">{work.company} | {work.location}</div>
+              <div className="text-xs italic mb-2">
+                {work.company} | {work.location}
+              </div>
               {work.description && work.description.length > 0 && (
                 <ul className="space-y-1">
                   {work.description.map((desc, index) => (
@@ -92,8 +105,12 @@ export function ElegantTemplate({ data }: ElegantTemplateProps) {
           {education.map((edu) => (
             <div key={edu.id} className="mb-3">
               <div className="flex justify-between items-baseline">
-                <h3 className="text-sm font-bold">{edu.degree} in {edu.field}</h3>
-                <span className="text-xs italic">{edu.startDate} - {edu.endDate}</span>
+                <h3 className="text-sm font-bold">
+                  {edu.degree} in {edu.field}
+                </h3>
+                <span className="text-xs italic">
+                  {edu.startDate} - {edu.endDate}
+                </span>
               </div>
               <div className="text-xs italic">{edu.institution}</div>
               {edu.gpa && <div className="text-xs">GPA: {edu.gpa}</div>}
@@ -111,9 +128,9 @@ export function ElegantTemplate({ data }: ElegantTemplateProps) {
           <div className="grid grid-cols-2 gap-4">
             {Object.entries(
               skills.reduce((acc, skill) => {
-                if (!acc[skill.category]) acc[skill.category] = []
-                acc[skill.category].push(skill)
-                return acc
+                if (!acc[skill.category]) acc[skill.category] = [];
+                acc[skill.category].push(skill);
+                return acc;
               }, {} as Record<string, typeof skills>)
             ).map(([category, categorySkills]) => (
               <div key={category}>
@@ -142,9 +159,13 @@ export function ElegantTemplate({ data }: ElegantTemplateProps) {
             <div key={project.id} className="mb-3">
               <div className="flex justify-between items-baseline mb-1">
                 <h3 className="text-sm font-bold">{project.name}</h3>
-                <span className="text-xs italic">{project.startDate} - {project.endDate}</span>
+                <span className="text-xs italic">
+                  {project.startDate} - {project.endDate}
+                </span>
               </div>
-              {project.description && <p className="text-xs mb-1">{project.description}</p>}
+              {project.description && (
+                <p className="text-xs mb-1">{project.description}</p>
+              )}
               {project.technologies && project.technologies.length > 0 && (
                 <div className="text-xs italic">
                   Technologies: {project.technologies.join(" • ")}
@@ -165,7 +186,9 @@ export function ElegantTemplate({ data }: ElegantTemplateProps) {
             {certificates.map((cert) => (
               <div key={cert.id} className="mb-2">
                 <div className="text-xs font-bold">{cert.name}</div>
-                <div className="text-xs italic">{cert.issuer} | {cert.issueDate}</div>
+                <div className="text-xs italic">
+                  {cert.issuer} | {cert.issueDate}
+                </div>
               </div>
             ))}
           </div>
@@ -188,5 +211,5 @@ export function ElegantTemplate({ data }: ElegantTemplateProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

@@ -33,13 +33,17 @@ import { TimelineTemplate } from "@/components/templates/timeline-template";
 import { ExecutiveProTemplate } from "@/components/templates/executive-pro-template";
 import { ModernProTemplate } from "@/components/templates/modern-pro-template";
 import { ConsultantTemplate } from "@/components/templates/consultant-template";
+import { SimpleTemplate } from "@/components/templates/simple-template";
+import { CleanTemplate } from "@/components/templates/clean-template";
+import { BasicTemplate } from "@/components/templates/basic-template";
 import { AnimatedTemplatePreview } from "@/components/animated-template-preview";
 import { AnimatedFormSection } from "@/components/animated-form-section";
 import { PrintResumeButton } from "@/components/print-resume-button";
-import { ArrowLeft, Eye, Palette, Sparkles } from "lucide-react";
+import { ArrowLeft, Eye, Palette, Sparkles, FileText, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import type { ResumeData } from "@/lib/types";
 import { defaultResumeData } from "@/lib/types";
+import { exampleResumeData } from "@/lib/example-data";
 
 type TemplateType =
   | "modern"
@@ -55,7 +59,10 @@ type TemplateType =
   | "timeline"
   | "executivepro"
   | "modernpro"
-  | "consultant";
+  | "consultant"
+  | "simple"
+  | "clean"
+  | "basic";
 
 const templates = {
   modern: {
@@ -128,6 +135,21 @@ const templates = {
     component: ConsultantTemplate,
     description: "Sophisticated layout with gradient accents",
   },
+  simple: {
+    name: "Simple",
+    component: SimpleTemplate,
+    description: "Clean and straightforward layout",
+  },
+  clean: {
+    name: "Clean",
+    component: CleanTemplate,
+    description: "Light fonts with subtle borders",
+  },
+  basic: {
+    name: "Basic",
+    component: BasicTemplate,
+    description: "Minimal formatting with inline text",
+  },
 };
 
 export default function BuilderPage() {
@@ -136,6 +158,14 @@ export default function BuilderPage() {
     useState<TemplateType>("modern");
   const [isPreviewMode, setIsPreviewMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const loadExampleData = useCallback(() => {
+    setResumeData(exampleResumeData);
+  }, []);
+
+  const resetForm = useCallback(() => {
+    setResumeData(defaultResumeData);
+  }, []);
 
   const updatePersonalInfo = useCallback(
     (personalInfo: ResumeData["personalInfo"]) => {
@@ -201,79 +231,73 @@ export default function BuilderPage() {
         transition={{ duration: 0.3 }}
         className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50"
       >
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" asChild>
+        <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
+            {/* Logo and Back button */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Button variant="ghost" size="sm" asChild className="px-1 sm:px-2">
                 <Link href="/">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Home
+                  <ArrowLeft className="h-4 w-4" />
+                  <span className="hidden md:inline ml-1">Back</span>
                 </Link>
               </Button>
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-primary" />
-                <h1 className="text-lg sm:text-xl font-serif font-bold">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <h1 className="text-sm sm:text-base lg:text-lg font-serif font-bold">
                   Resume Builder
                 </h1>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Select
-                  value={selectedTemplate}
-                  onValueChange={(value: TemplateType) => {
-                    setIsLoading(true);
-                    setSelectedTemplate(value);
-                    setTimeout(() => setIsLoading(false), 100);
-                  }}
+
+            {/* Action buttons */}
+            <div className="flex items-center gap-1 w-full sm:w-auto justify-end">
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={loadExampleData}
+                  className="px-2 text-xs sm:text-sm"
+                  disabled={isLoading}
                 >
-                  <SelectTrigger className="w-full sm:w-40 px-0">
-                    <Palette className="h-4 w-4 mr-2" />
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(templates).map(([key, template]) => (
-                      <SelectItem key={key} value={key}>
-                        <div className="flex flex-col items-start">
-                          <span className="font-medium">{template.name}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {template.description}
-                          </span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  <FileText className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden lg:inline ml-1">Example</span>
+                </Button>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={resetForm}
+                  className="px-2 text-xs sm:text-sm"
+                  disabled={isLoading}
+                >
+                  <RotateCcw className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden lg:inline ml-1">Reset</span>
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setIsPreviewMode(!isPreviewMode)}
-                  className={
+                  className={`px-2 text-xs sm:text-sm ${
                     isPreviewMode ? "bg-primary text-primary-foreground" : ""
-                  }
+                  }`}
                   disabled={isLoading}
                 >
-                  <Eye className="h-4 w-4 mr-2" />
-                  {isPreviewMode ? "Edit Mode" : "Preview"}
+                  <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden lg:inline ml-1">
+                    {isPreviewMode ? "Edit" : "Preview"}
+                  </span>
                 </Button>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <PrintResumeButton
                   resumeData={resumeData}
                   templateName={templates[selectedTemplate].name}
                   size="sm"
                   disabled={isLoading}
+                  className="px-2 text-xs sm:text-sm"
                 />
               </motion.div>
             </div>
@@ -281,7 +305,44 @@ export default function BuilderPage() {
         </div>
       </motion.header>
 
-      <div className="container mx-auto px-4 py-4 sm:py-8">
+      {/* Template Selector */}
+      <div className="border-b border-border bg-card/30">
+        <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-3">
+          <div className="flex items-center gap-2 mb-2 sm:mb-3">
+            <Palette className="h-4 w-4 text-primary" />
+            <h3 className="text-sm sm:text-base font-semibold">Templates</h3>
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-1 sm:gap-2">
+            {Object.entries(templates).map(([key, template]) => (
+              <motion.button
+                key={key}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  setIsLoading(true);
+                  setSelectedTemplate(key as TemplateType);
+                  setTimeout(() => setIsLoading(false), 100);
+                }}
+                className={`p-1.5 sm:p-2 rounded border-2 transition-all text-left min-h-[50px] sm:min-h-[60px] ${
+                  selectedTemplate === key
+                    ? "border-primary bg-primary/10 shadow-sm"
+                    : "border-border hover:border-primary/50 bg-card"
+                }`}
+                disabled={isLoading}
+              >
+                <div className="text-xs font-medium mb-0.5 leading-tight truncate">
+                  {template.name}
+                </div>
+                <div className="text-xs text-muted-foreground line-clamp-2 leading-tight">
+                  {template.description}
+                </div>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-4 lg:py-6">
         <AnimatePresence mode="wait">
           {isPreviewMode ? (
             <motion.div
@@ -290,13 +351,13 @@ export default function BuilderPage() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
-              className="max-w-4xl mx-auto"
+              className="max-w-full mx-auto px-2 sm:px-4"
             >
               <div className="text-center mb-6">
-                <h2 className="text-xl sm:text-2xl font-serif font-bold mb-2">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-serif font-bold mb-2">
                   Resume Preview
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Template: {templates[selectedTemplate].name}
                 </p>
               </div>
@@ -315,65 +376,43 @@ export default function BuilderPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="grid lg:grid-cols-2 gap-4 sm:gap-8"
+              className="grid lg:grid-cols-2 gap-2 sm:gap-4 lg:gap-6"
             >
               {/* Form Section */}
-              <div className="space-y-4 sm:space-y-6">
+              <div className="space-y-2 sm:space-y-4 lg:space-y-6">
                 <AnimatedFormSection>
                   <div className="text-center lg:text-left">
-                    <h2 className="text-xl sm:text-2xl font-serif font-bold mb-2">
+                    <h2 className="text-lg sm:text-xl lg:text-2xl font-serif font-bold mb-2">
                       Build Your Resume
                     </h2>
-                    <p className="text-sm sm:text-base text-muted-foreground">
-                      Fill in your information below and see your resume update
-                      in real-time.
+                    <p className="text-xs sm:text-sm lg:text-base text-muted-foreground">
+                      Fill in your information and see live preview.
                     </p>
                   </div>
                 </AnimatedFormSection>
 
                 <AnimatedFormSection delay={0.1}>
                   <Tabs defaultValue="personal" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 h-auto gap-1 p-1">
-                      <TabsTrigger
-                        value="personal"
-                        className="text-xs sm:text-sm px-1 sm:px-2 py-2 whitespace-nowrap"
-                      >
+                    <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 h-auto gap-0.5 sm:gap-1 p-0.5 sm:p-1">
+                      <TabsTrigger value="personal" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
                         Personal
                       </TabsTrigger>
-                      <TabsTrigger
-                        value="experience"
-                        className="text-xs sm:text-sm px-1 sm:px-2 py-2 whitespace-nowrap"
-                      >
+                      <TabsTrigger value="experience" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
                         Experience
                       </TabsTrigger>
-                      <TabsTrigger
-                        value="education"
-                        className="text-xs sm:text-sm px-1 sm:px-2 py-2 whitespace-nowrap"
-                      >
+                      <TabsTrigger value="education" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
                         Education
                       </TabsTrigger>
-                      <TabsTrigger
-                        value="projects"
-                        className="text-xs sm:text-sm px-1 sm:px-2 py-2 whitespace-nowrap"
-                      >
+                      <TabsTrigger value="projects" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
                         Projects
                       </TabsTrigger>
-                      <TabsTrigger
-                        value="skills"
-                        className="text-xs sm:text-sm px-1 sm:px-2 py-2 whitespace-nowrap"
-                      >
+                      <TabsTrigger value="skills" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
                         Skills
                       </TabsTrigger>
-                      <TabsTrigger
-                        value="certificates"
-                        className="text-xs sm:text-sm px-1 sm:px-2 py-2 whitespace-nowrap"
-                      >
+                      <TabsTrigger value="certificates" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
                         Certificates
                       </TabsTrigger>
-                      <TabsTrigger
-                        value="hobbies"
-                        className="text-xs sm:text-sm px-1 sm:px-2 py-2 whitespace-nowrap"
-                      >
+                      <TabsTrigger value="hobbies" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
                         Hobbies
                       </TabsTrigger>
                     </TabsList>
@@ -435,12 +474,12 @@ export default function BuilderPage() {
 
               {/* Preview Section */}
               <AnimatedFormSection delay={0.2}>
-                <div className="lg:sticky lg:top-24 lg:h-fit">
-                  <Card className="p-3 sm:p-6">
-                    <div className="text-center mb-4 sm:mb-6">
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                        <h3 className="text-base sm:text-lg font-serif font-semibold">
+                <div className="lg:sticky lg:top-20 lg:h-fit">
+                  <Card className="p-2 sm:p-4 lg:p-6">
+                    <div className="text-center mb-2 sm:mb-4 lg:mb-6">
+                      <div className="flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+                        <Eye className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-primary" />
+                        <h3 className="text-sm sm:text-base lg:text-lg font-serif font-semibold">
                           Live Preview
                         </h3>
                       </div>
@@ -449,14 +488,14 @@ export default function BuilderPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3 }}
-                        className="text-xs sm:text-sm text-muted-foreground"
+                        className="text-xs text-muted-foreground"
                       >
                         Template: {templates[selectedTemplate].name}
                       </motion.p>
                     </div>
 
                     <div className="bg-white border border-border rounded-lg overflow-hidden shadow-sm">
-                      <div className="transform scale-[0.3] sm:scale-[0.4] lg:scale-50 origin-top-left w-[333%] sm:w-[250%] lg:w-[200%] h-[333%] sm:h-[250%] lg:h-[200%] overflow-hidden">
+                      <div className="transform scale-[0.25] sm:scale-[0.35] md:scale-[0.4] lg:scale-[0.45] xl:scale-50 origin-top-left w-[400%] sm:w-[285%] md:w-[250%] lg:w-[222%] xl:w-[200%] h-[400%] sm:h-[285%] md:h-[250%] lg:h-[222%] xl:h-[200%] overflow-hidden">
                         <div data-resume-template>
                           <AnimatedTemplatePreview
                             templateKey={selectedTemplate}

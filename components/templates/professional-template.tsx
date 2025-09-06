@@ -1,17 +1,26 @@
-import type { ResumeData } from "@/lib/types"
+import type { ResumeData } from "@/lib/types";
 
 interface ProfessionalTemplateProps {
-  data: ResumeData
+  data: ResumeData;
 }
 
 export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
-  const { personalInfo, education, workExperience, skills, projects, achievements } = data
+  const {
+    personalInfo,
+    education,
+    workExperience,
+    skills,
+    projects,
+    achievements,
+  } = data;
 
   return (
-    <div className="bg-white text-gray-900 max-w-[8.5in] mx-auto">
+    <div className="bg-white text-gray-900 w-full max-w-[8.5in] mx-auto">
       {/* Header */}
       <div className="bg-gray-800 text-white p-8 px-3 py-3">
-        <h1 className="text-3xl font-bold mb-2">{personalInfo.fullName || "Your Name"}</h1>
+        <h1 className="text-3xl font-bold mb-2">
+          {personalInfo.fullName || "Your Name"}
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div className="space-y-1">
             {personalInfo.email && <div>📧 {personalInfo.email}</div>}
@@ -31,7 +40,9 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
             <h2 className="text-xl font-bold text-gray-800 mb-3 border-b-2 border-gray-800 pb-1">
               PROFESSIONAL SUMMARY
             </h2>
-            <p className="text-gray-700 leading-relaxed">{personalInfo.summary}</p>
+            <p className="text-gray-700 leading-relaxed">
+              {personalInfo.summary}
+            </p>
           </div>
         )}
 
@@ -46,13 +57,18 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
                 <div key={work.id}>
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-800">{work.position}</h3>
-                      <div className="text-gray-600 font-semibold">{work.company}</div>
+                      <h3 className="text-lg font-bold text-gray-800">
+                        {work.position}
+                      </h3>
+                      <div className="text-gray-600 font-semibold">
+                        {work.company}
+                      </div>
                     </div>
                     <div className="text-right text-sm">
                       <div className="font-semibold">{work.location}</div>
                       <div className="text-gray-600">
-                        {work.startDate} - {work.current ? "Present" : work.endDate}
+                        {work.startDate} -{" "}
+                        {work.current ? "Present" : work.endDate}
                       </div>
                     </div>
                   </div>
@@ -74,17 +90,25 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
           {/* Education */}
           {education.length > 0 && (
             <div>
-              <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-800 pb-1">EDUCATION</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-800 pb-1">
+                EDUCATION
+              </h2>
               <div className="space-y-4">
                 {education.map((edu) => (
                   <div key={edu.id}>
                     <h3 className="font-bold text-gray-800">{edu.degree}</h3>
                     <div className="text-gray-600">{edu.field}</div>
-                    <div className="text-gray-600 font-semibold">{edu.institution}</div>
+                    <div className="text-gray-600 font-semibold">
+                      {edu.institution}
+                    </div>
                     <div className="text-sm text-gray-500">
                       {edu.startDate} - {edu.endDate}
                     </div>
-                    {edu.gpa && <div className="text-sm text-gray-600">GPA: {edu.gpa}</div>}
+                    {edu.gpa && (
+                      <div className="text-sm text-gray-600">
+                        GPA: {edu.gpa}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -99,17 +123,16 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
               </h2>
               <div className="space-y-3">
                 {Object.entries(
-                  skills.reduce(
-                    (acc, skill) => {
-                      if (!acc[skill.category]) acc[skill.category] = []
-                      acc[skill.category].push(skill)
-                      return acc
-                    },
-                    {} as Record<string, typeof skills>,
-                  ),
+                  skills.reduce((acc, skill) => {
+                    if (!acc[skill.category]) acc[skill.category] = [];
+                    acc[skill.category].push(skill);
+                    return acc;
+                  }, {} as Record<string, typeof skills>)
                 ).map(([category, categorySkills]) => (
                   <div key={category}>
-                    <h4 className="font-semibold text-gray-700 mb-1">{category}</h4>
+                    <h4 className="font-semibold text-gray-700 mb-1">
+                      {category}
+                    </h4>
                     <div className="grid grid-cols-2 gap-1 text-sm">
                       {categorySkills.map((skill) => (
                         <div key={skill.id} className="flex justify-between">
@@ -128,7 +151,9 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
         {/* Projects */}
         {projects.length > 0 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-800 pb-1">KEY PROJECTS</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-800 pb-1">
+              KEY PROJECTS
+            </h2>
             <div className="space-y-4">
               {projects.map((project) => (
                 <div key={project.id}>
@@ -138,10 +163,16 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
                       {project.startDate} - {project.endDate}
                     </div>
                   </div>
-                  <p className="text-sm text-gray-700 mb-2">{project.description}</p>
+                  <p className="text-sm text-gray-700 mb-2">
+                    {project.description}
+                  </p>
                   <div className="text-sm">
-                    <span className="font-semibold text-gray-700">Technologies: </span>
-                    <span className="text-gray-600">{project.technologies.join(", ")}</span>
+                    <span className="font-semibold text-gray-700">
+                      Technologies:{" "}
+                    </span>
+                    <span className="text-gray-600">
+                      {project.technologies.join(", ")}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -152,7 +183,9 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
         {/* Additional Links */}
         {(personalInfo.linkedin || personalInfo.github) && (
           <div>
-            <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-800 pb-1">PROFESSIONAL LINKS</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-800 pb-1">
+              PROFESSIONAL LINKS
+            </h2>
             <div className="space-y-1 text-sm">
               {personalInfo.linkedin && (
                 <div>
@@ -171,5 +204,5 @@ export function ProfessionalTemplate({ data }: ProfessionalTemplateProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

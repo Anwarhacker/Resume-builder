@@ -1,19 +1,26 @@
-import type { ResumeData } from "@/lib/types"
+import type { ResumeData } from "@/lib/types";
 
 interface CorporateTemplateProps {
-  data: ResumeData
+  data: ResumeData;
 }
 
 export function CorporateTemplate({ data }: CorporateTemplateProps) {
-  const { personalInfo, education, workExperience, skills, projects, certificates, hobbies } = data
+  const {
+    personalInfo,
+    education,
+    workExperience,
+    skills,
+    projects,
+    certificates,
+    hobbies,
+  } = data;
 
-  const hasContent = (section: any[]) => section && section.length > 0
+  const hasContent = (section: any[]) => section && section.length > 0;
 
   return (
     <div
-      className="bg-white text-black mx-auto font-sans text-xs leading-tight"
+      className="bg-white text-black mx-auto font-sans text-xs leading-tight w-full max-w-[794px]"
       style={{
-        width: "794px",
         minHeight: "1123px",
         padding: "30px",
         boxSizing: "border-box",
@@ -32,31 +39,36 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
             <div className="space-y-1 text-xs">
               {personalInfo.email && (
                 <div>
-                  <span className="font-bold">EMAIL</span><br/>
+                  <span className="font-bold">EMAIL</span>
+                  <br />
                   {personalInfo.email}
                 </div>
               )}
               {personalInfo.phone && (
                 <div>
-                  <span className="font-bold">PHONE</span><br/>
+                  <span className="font-bold">PHONE</span>
+                  <br />
                   {personalInfo.phone}
                 </div>
               )}
               {personalInfo.location && (
                 <div>
-                  <span className="font-bold">LOCATION</span><br/>
+                  <span className="font-bold">LOCATION</span>
+                  <br />
                   {personalInfo.location}
                 </div>
               )}
               {personalInfo.linkedin && (
                 <div>
-                  <span className="font-bold">LINKEDIN</span><br/>
+                  <span className="font-bold">LINKEDIN</span>
+                  <br />
                   {personalInfo.linkedin}
                 </div>
               )}
               {personalInfo.github && (
                 <div>
-                  <span className="font-bold">GITHUB</span><br/>
+                  <span className="font-bold">GITHUB</span>
+                  <br />
                   {personalInfo.github}
                 </div>
               )}
@@ -66,26 +78,40 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
           {/* Skills */}
           {hasContent(skills) && (
             <div className="mb-6">
-              <h3 className="text-sm font-bold mb-3 border-b border-black pb-1">SKILLS</h3>
+              <h3 className="text-sm font-bold mb-3 border-b border-black pb-1">
+                SKILLS
+              </h3>
               {Object.entries(
                 skills.reduce((acc, skill) => {
-                  if (!acc[skill.category]) acc[skill.category] = []
-                  acc[skill.category].push(skill)
-                  return acc
+                  if (!acc[skill.category]) acc[skill.category] = [];
+                  acc[skill.category].push(skill);
+                  return acc;
                 }, {} as Record<string, typeof skills>)
               ).map(([category, categorySkills]) => (
                 <div key={category} className="mb-3">
-                  <h4 className="text-xs font-bold mb-1 uppercase">{category}</h4>
+                  <h4 className="text-xs font-bold mb-1 uppercase">
+                    {category}
+                  </h4>
                   <div className="space-y-1">
                     {categorySkills.map((skill) => (
-                      <div key={skill.id} className="flex justify-between text-xs">
+                      <div
+                        key={skill.id}
+                        className="flex justify-between text-xs"
+                      >
                         <span>{skill.name}</span>
                         <div className="flex gap-0.5">
                           {[1, 2, 3, 4].map((level) => (
                             <div
                               key={level}
                               className={`w-2 h-2 border border-black ${
-                                level <= ["Beginner", "Intermediate", "Advanced", "Expert"].indexOf(skill.level) + 1
+                                level <=
+                                [
+                                  "Beginner",
+                                  "Intermediate",
+                                  "Advanced",
+                                  "Expert",
+                                ].indexOf(skill.level) +
+                                  1
                                   ? "bg-black"
                                   : "bg-white"
                               }`}
@@ -103,12 +129,16 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
           {/* Education */}
           {hasContent(education) && (
             <div className="mb-6">
-              <h3 className="text-sm font-bold mb-3 border-b border-black pb-1">EDUCATION</h3>
+              <h3 className="text-sm font-bold mb-3 border-b border-black pb-1">
+                EDUCATION
+              </h3>
               {education.map((edu) => (
                 <div key={edu.id} className="mb-3 text-xs">
                   <div className="font-bold">{edu.degree}</div>
                   <div>{edu.institution}</div>
-                  <div className="text-gray-600">{edu.startDate} - {edu.endDate}</div>
+                  <div className="text-gray-600">
+                    {edu.startDate} - {edu.endDate}
+                  </div>
                   {edu.gpa && <div>GPA: {edu.gpa}</div>}
                 </div>
               ))}
@@ -118,7 +148,9 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
           {/* Certificates */}
           {hasContent(certificates) && (
             <div className="mb-6">
-              <h3 className="text-sm font-bold mb-3 border-b border-black pb-1">CERTIFICATIONS</h3>
+              <h3 className="text-sm font-bold mb-3 border-b border-black pb-1">
+                CERTIFICATIONS
+              </h3>
               {certificates.map((cert) => (
                 <div key={cert.id} className="mb-2 text-xs">
                   <div className="font-bold">{cert.name}</div>
@@ -135,24 +167,37 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
           {/* Summary */}
           {personalInfo.summary && (
             <div className="mb-6">
-              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">PROFESSIONAL SUMMARY</h2>
-              <p className="text-xs text-justify leading-relaxed">{personalInfo.summary}</p>
+              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">
+                PROFESSIONAL SUMMARY
+              </h2>
+              <p className="text-xs text-justify leading-relaxed">
+                {personalInfo.summary}
+              </p>
             </div>
           )}
 
           {/* Experience */}
           {hasContent(workExperience) && (
             <div className="mb-6">
-              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">PROFESSIONAL EXPERIENCE</h2>
+              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">
+                PROFESSIONAL EXPERIENCE
+              </h2>
               {workExperience.map((work) => (
                 <div key={work.id} className="mb-4">
                   <div className="flex justify-between items-start mb-1">
                     <div>
-                      <h3 className="text-sm font-bold uppercase">{work.position}</h3>
-                      <div className="text-xs font-semibold">{work.company}</div>
+                      <h3 className="text-sm font-bold uppercase">
+                        {work.position}
+                      </h3>
+                      <div className="text-xs font-semibold">
+                        {work.company}
+                      </div>
                     </div>
                     <div className="text-right text-xs">
-                      <div>{work.startDate} - {work.current ? "PRESENT" : work.endDate}</div>
+                      <div>
+                        {work.startDate} -{" "}
+                        {work.current ? "PRESENT" : work.endDate}
+                      </div>
                       <div>{work.location}</div>
                     </div>
                   </div>
@@ -174,14 +219,22 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
           {/* Projects */}
           {hasContent(projects) && (
             <div className="mb-6">
-              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">KEY PROJECTS</h2>
+              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">
+                KEY PROJECTS
+              </h2>
               {projects.map((project) => (
                 <div key={project.id} className="mb-4">
                   <div className="flex justify-between items-start mb-1">
-                    <h3 className="text-sm font-bold uppercase">{project.name}</h3>
-                    <div className="text-xs">{project.startDate} - {project.endDate}</div>
+                    <h3 className="text-sm font-bold uppercase">
+                      {project.name}
+                    </h3>
+                    <div className="text-xs">
+                      {project.startDate} - {project.endDate}
+                    </div>
                   </div>
-                  {project.description && <p className="text-xs mb-2">{project.description}</p>}
+                  {project.description && (
+                    <p className="text-xs mb-2">{project.description}</p>
+                  )}
                   {project.technologies && project.technologies.length > 0 && (
                     <div className="text-xs">
                       <span className="font-bold">Technologies: </span>
@@ -196,7 +249,9 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
           {/* Hobbies */}
           {hasContent(hobbies) && (
             <div>
-              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">INTERESTS</h2>
+              <h2 className="text-sm font-bold mb-3 border-b border-black pb-1">
+                INTERESTS
+              </h2>
               <div className="text-xs">
                 {hobbies.map((hobby, index) => (
                   <span key={hobby.id}>
@@ -210,5 +265,5 @@ export function CorporateTemplate({ data }: CorporateTemplateProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }
