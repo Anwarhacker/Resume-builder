@@ -1,15 +1,15 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Trash2, Plus } from "lucide-react"
-import type { Hobby } from "@/lib/types"
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Trash2, Plus } from "lucide-react";
+import type { Hobby } from "@/lib/types";
 
 interface HobbiesFormProps {
-  hobbies: Hobby[]
-  onChange: (hobbies: Hobby[]) => void
+  hobbies: Hobby[];
+  onChange: (hobbies: Hobby[]) => void;
 }
 
 export function HobbiesForm({ hobbies, onChange }: HobbiesFormProps) {
@@ -18,17 +18,21 @@ export function HobbiesForm({ hobbies, onChange }: HobbiesFormProps) {
       id: Date.now().toString(),
       name: "",
       description: "",
-    }
-    onChange([...hobbies, newHobby])
-  }
+    };
+    onChange([...hobbies, newHobby]);
+  };
 
   const updateHobby = (id: string, field: keyof Hobby, value: string) => {
-    onChange(hobbies.map((hobby) => (hobby.id === id ? { ...hobby, [field]: value } : hobby)))
-  }
+    onChange(
+      hobbies.map((hobby) =>
+        hobby.id === id ? { ...hobby, [field]: value } : hobby
+      )
+    );
+  };
 
   const removeHobby = (id: string) => {
-    onChange(hobbies.filter((hobby) => hobby.id !== id))
-  }
+    onChange(hobbies.filter((hobby) => hobby.id !== id));
+  };
 
   return (
     <div className="space-y-6">
@@ -40,12 +44,21 @@ export function HobbiesForm({ hobbies, onChange }: HobbiesFormProps) {
         </Button>
       </div>
 
-      {hobbies.map((hobby) => (
-        <Card key={hobby.id}>
+      {hobbies.map((hobby, index) => (
+        <Card
+          key={hobby.id}
+          className={index % 2 === 0 ? "bg-blue-50/30" : "bg-green-50/30"}
+        >
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base">Hobby/Interest</CardTitle>
-              <Button variant="ghost" size="sm" onClick={() => removeHobby(hobby.id)}>
+              <CardTitle className="text-base bg-violet-200 p-1 rounded-lg">
+                Hobby {index + 1}: {hobby.name || "New Hobby"}
+              </CardTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeHobby(hobby.id)}
+              >
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>
@@ -61,11 +74,15 @@ export function HobbiesForm({ hobbies, onChange }: HobbiesFormProps) {
               />
             </div>
             <div>
-              <Label htmlFor={`hobby-desc-${hobby.id}`}>Description (Optional)</Label>
+              <Label htmlFor={`hobby-desc-${hobby.id}`}>
+                Description (Optional)
+              </Label>
               <Textarea
                 id={`hobby-desc-${hobby.id}`}
                 value={hobby.description}
-                onChange={(e) => updateHobby(hobby.id, "description", e.target.value)}
+                onChange={(e) =>
+                  updateHobby(hobby.id, "description", e.target.value)
+                }
                 placeholder="Brief description of your interest or achievements..."
                 rows={2}
               />
@@ -80,5 +97,5 @@ export function HobbiesForm({ hobbies, onChange }: HobbiesFormProps) {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -1,16 +1,22 @@
-"use client"
+"use client";
 
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Plus, Trash2 } from "lucide-react"
-import type { Skill } from "@/lib/types"
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus, Trash2 } from "lucide-react";
+import type { Skill } from "@/lib/types";
 
 interface SkillsFormProps {
-  data: Skill[]
-  onChange: (data: Skill[]) => void
+  data: Skill[];
+  onChange: (data: Skill[]) => void;
 }
 
 export function SkillsForm({ data, onChange }: SkillsFormProps) {
@@ -20,17 +26,21 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
       name: "",
       level: "Intermediate",
       category: "Technical",
-    }
-    onChange([...data, newSkill])
-  }
+    };
+    onChange([...data, newSkill]);
+  };
 
   const updateSkill = (id: string, field: keyof Skill, value: string) => {
-    onChange(data.map((skill) => (skill.id === id ? { ...skill, [field]: value } : skill)))
-  }
+    onChange(
+      data.map((skill) =>
+        skill.id === id ? { ...skill, [field]: value } : skill
+      )
+    );
+  };
 
   const removeSkill = (id: string) => {
-    onChange(data.filter((skill) => skill.id !== id))
-  }
+    onChange(data.filter((skill) => skill.id !== id));
+  };
 
   return (
     <Card>
@@ -48,10 +58,17 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {data.map((skill) => (
-              <div key={skill.id} className="border border-border rounded-lg p-4 space-y-3">
+            {data.map((skill, index) => (
+              <div
+                key={skill.id}
+                className={`border border-border rounded-lg p-4 space-y-3 ${
+                  index % 2 === 0 ? "bg-blue-50/30" : "bg-green-50/30"
+                }`}
+              >
                 <div className="flex justify-between items-start">
-                  <h4 className="font-medium text-sm">Skill</h4>
+                  <h4 className="font-medium text-sm bg-violet-200 p-1 rounded-lg">
+                    Skill {index + 1}: {skill.name || "New Skill"}
+                  </h4>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -66,7 +83,9 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
                   <Label className="text-xs">Skill Name *</Label>
                   <Input
                     value={skill.name}
-                    onChange={(e) => updateSkill(skill.id, "name", e.target.value)}
+                    onChange={(e) =>
+                      updateSkill(skill.id, "name", e.target.value)
+                    }
                     placeholder="React, Python, etc."
                     className="h-8"
                   />
@@ -76,7 +95,9 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
                   <Label className="text-xs">Category *</Label>
                   <Input
                     value={skill.category}
-                    onChange={(e) => updateSkill(skill.id, "category", e.target.value)}
+                    onChange={(e) =>
+                      updateSkill(skill.id, "category", e.target.value)
+                    }
                     placeholder="Technical, Soft Skills, etc."
                     className="h-8"
                   />
@@ -86,7 +107,9 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
                   <Label className="text-xs">Proficiency Level *</Label>
                   <Select
                     value={skill.level}
-                    onValueChange={(value) => updateSkill(skill.id, "level", value as Skill["level"])}
+                    onValueChange={(value) =>
+                      updateSkill(skill.id, "level", value as Skill["level"])
+                    }
                   >
                     <SelectTrigger className="h-8">
                       <SelectValue />
@@ -105,5 +128,5 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

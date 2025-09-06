@@ -8,21 +8,68 @@ import { Badge } from "@/components/ui/badge"
 import { FileText, Download, Palette, Zap, Users, Star } from "lucide-react"
 
 export default function HomePage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ResumeBuilder",
+    "description": "Create stunning professional resumes with our free online resume builder. Choose from 18+ ATS-friendly templates, get live preview, and download as PDF instantly.",
+    "url": "https://resumebuilder.com",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "ResumeBuilder Team"
+    },
+    "featureList": [
+      "Multiple Professional Templates",
+      "Live Preview",
+      "PDF Download",
+      "ATS-Friendly Design",
+      "Mobile Responsive",
+      "No Signup Required"
+    ],
+    "screenshot": "https://resumebuilder.com/og-image.jpg",
+    "softwareVersion": "1.0",
+    "datePublished": "2024-01-01",
+    "dateModified": new Date().toISOString().split('T')[0],
+    "inLanguage": "en-US",
+    "isAccessibleForFree": true,
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "softwareRequirements": "Web browser",
+    "memoryRequirements": "512 MB RAM",
+    "storageRequirements": "10 MB available space"
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="min-h-screen bg-background">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
         className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50"
+        role="banner"
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <FileText className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-serif font-bold text-foreground">ResumeBuilder</h1>
+            <FileText className="h-8 w-8 text-primary" aria-hidden="true" />
+            <h1 className="text-2xl font-serif font-bold text-foreground">
+              <Link href="/" className="hover:text-primary transition-colors">
+                ResumeBuilder
+              </Link>
+            </h1>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6" role="navigation" aria-label="Main navigation">
             <Link href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
               Features
             </Link>
@@ -34,36 +81,40 @@ export default function HomePage() {
             </Link>
           </nav>
           <Button asChild>
-            <Link href="/builder">Start Building</Link>
+            <Link href="/builder" aria-label="Start building your resume">
+              Start Building
+            </Link>
           </Button>
         </div>
       </motion.header>
 
       {/* Hero Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4">
-        <div className="container mx-auto text-center max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <Badge variant="secondary" className="mb-4 sm:mb-6">
-              ✨ Professional Resume Builder
-            </Badge>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-balance mb-4 sm:mb-6 leading-tight"
-          >
-            Create Your Perfect Resume in <span className="text-primary">Minutes</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg lg:text-xl text-muted-foreground text-balance mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto px-4"
-          >
-            Build stunning professional resumes with our intuitive builder. Choose from multiple templates, get live
-            preview, and download as PDF instantly.
-          </motion.p>
+      <main>
+        <section className="py-12 sm:py-16 lg:py-20 px-4" role="main" aria-labelledby="hero-heading">
+          <div className="container mx-auto text-center max-w-4xl">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <Badge variant="secondary" className="mb-4 sm:mb-6">
+                ✨ Professional Resume Builder
+              </Badge>
+            </motion.div>
+            <motion.h1
+              id="hero-heading"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-balance mb-4 sm:mb-6 leading-tight"
+            >
+              Create Your Perfect Resume in <span className="text-primary">Minutes</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base sm:text-lg lg:text-xl text-muted-foreground text-balance mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto px-4"
+            >
+            Build stunning professional resumes with our intuitive builder. Choose from 18+ ATS-friendly templates, get live
+            preview, and download as PDF instantly. No signup required - start building your resume right now!
+            </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,8 +123,8 @@ export default function HomePage() {
           >
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button size="lg" asChild className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto">
-                <Link href="/builder">
-                  <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                <Link href="/builder" aria-label="Start building your professional resume">
+                  <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                   Start Building Resume
                 </Link>
               </Button>
@@ -83,8 +134,9 @@ export default function HomePage() {
                 size="lg"
                 variant="outline"
                 className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 bg-transparent w-full sm:w-auto"
+                aria-label="View available resume templates"
               >
-                <Palette className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                <Palette className="mr-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                 View Templates
               </Button>
             </motion.div>
@@ -92,29 +144,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-12 sm:py-16 lg:py-20 px-4 bg-card/30">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 sm:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold mb-3 sm:mb-4 px-4">
-              Why Choose Our Resume Builder?
-            </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground text-balance max-w-2xl mx-auto px-4">
-              Everything you need to create a professional resume that stands out from the crowd.
-            </p>
-          </motion.div>
+        {/* Features Section */}
+        <section id="features" className="py-12 sm:py-16 lg:py-20 px-4 bg-card/30" aria-labelledby="features-heading">
+          <div className="container mx-auto max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12 sm:mb-16"
+            >
+              <h2 id="features-heading" className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold mb-3 sm:mb-4 px-4">
+                Why Choose Our Resume Builder?
+              </h2>
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground text-balance max-w-2xl mx-auto px-4">
+                Everything you need to create a professional resume that stands out from the crowd and passes ATS systems.
+              </p>
+            </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 icon: Palette,
                 title: "Multiple Templates",
-                description: "Choose from 4+ professionally designed templates ranging from modern to creative styles.",
+                description: "Choose from 18+ professionally designed templates ranging from modern to creative styles, including new black and white options.",
                 delay: 0,
               },
               {
@@ -157,7 +209,7 @@ export default function HomePage() {
               >
                 <Card className="border-border/50 hover:border-primary/20 transition-colors h-full">
                   <CardHeader>
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4" aria-hidden="true">
                       <feature.icon className="h-6 w-6 text-primary" />
                     </div>
                     <CardTitle>{feature.title}</CardTitle>
@@ -170,34 +222,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4">
-        <div className="container mx-auto text-center max-w-3xl">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold mb-4 sm:mb-6 text-balance px-4">
-            Ready to Build Your Professional Resume?
-          </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 text-balance px-4">
-            Join thousands of professionals who have created stunning resumes with our builder.
-          </p>
-          <Button size="lg" asChild className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6">
-            <Link href="/builder">
-              <FileText className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-              Start Building Now - It's Free
-            </Link>
-          </Button>
-        </div>
-      </section>
+        {/* CTA Section */}
+        <section className="py-12 sm:py-16 lg:py-20 px-4" aria-labelledby="cta-heading">
+          <div className="container mx-auto text-center max-w-3xl">
+            <h2 id="cta-heading" className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold mb-4 sm:mb-6 text-balance px-4">
+              Ready to Build Your Professional Resume?
+            </h2>
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 text-balance px-4">
+              Join thousands of professionals who have created stunning resumes with our builder. Start building your career today!
+            </p>
+            <Button size="lg" asChild className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6">
+              <Link href="/builder" aria-label="Start building your professional resume now - it's completely free">
+                <FileText className="mr-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+                Start Building Now - It's Free
+              </Link>
+            </Button>
+          </div>
+        </section>
+      </main>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card/30 py-12 px-4">
+      <footer className="border-t border-border bg-card/30 py-12 px-4" role="contentinfo">
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <FileText className="h-6 w-6 text-primary" />
+            <FileText className="h-6 w-6 text-primary" aria-hidden="true" />
             <span className="text-lg font-serif font-semibold">ResumeBuilder</span>
           </div>
           <p className="text-muted-foreground">Built with Next.js, Tailwind CSS, and shadcn/ui</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            © 2024 ResumeBuilder. All rights reserved. | 
+            <Link href="/privacy" className="hover:text-primary transition-colors ml-1">Privacy Policy</Link> | 
+            <Link href="/terms" className="hover:text-primary transition-colors ml-1">Terms of Service</Link>
+          </p>
         </div>
       </footer>
     </div>
+    </>
   )
 }

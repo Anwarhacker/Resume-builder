@@ -1,22 +1,24 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Plus, Trash2, ExternalLink, Github } from "lucide-react"
-import type { Project } from "@/lib/types"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Plus, Trash2, ExternalLink, Github } from "lucide-react";
+import type { Project } from "@/lib/types";
 
 interface ProjectsFormProps {
-  projects: Project[]
-  onChange: (projects: Project[]) => void
+  projects: Project[];
+  onChange: (projects: Project[]) => void;
 }
 
 export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
-  const [newTechnology, setNewTechnology] = useState<{ [key: string]: string }>({})
+  const [newTechnology, setNewTechnology] = useState<{ [key: string]: string }>(
+    {}
+  );
 
   const addProject = () => {
     const newProject: Project = {
@@ -28,39 +30,43 @@ export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
       github: "",
       startDate: "",
       endDate: "",
-    }
-    onChange([...projects, newProject])
-  }
+    };
+    onChange([...projects, newProject]);
+  };
 
   const updateProject = (id: string, field: keyof Project, value: any) => {
-    onChange(projects.map((project) => (project.id === id ? { ...project, [field]: value } : project)))
-  }
+    onChange(
+      projects.map((project) =>
+        project.id === id ? { ...project, [field]: value } : project
+      )
+    );
+  };
 
   const removeProject = (id: string) => {
-    onChange(projects.filter((project) => project.id !== id))
-  }
+    onChange(projects.filter((project) => project.id !== id));
+  };
 
   const addTechnology = (projectId: string) => {
-    const tech = newTechnology[projectId]?.trim()
-    if (!tech) return
+    const tech = newTechnology[projectId]?.trim();
+    if (!tech) return;
 
-    const project = projects.find((p) => p.id === projectId)
+    const project = projects.find((p) => p.id === projectId);
     if (project && !project.technologies.includes(tech)) {
-      updateProject(projectId, "technologies", [...project.technologies, tech])
-      setNewTechnology({ ...newTechnology, [projectId]: "" })
+      updateProject(projectId, "technologies", [...project.technologies, tech]);
+      setNewTechnology({ ...newTechnology, [projectId]: "" });
     }
-  }
+  };
 
   const removeTechnology = (projectId: string, tech: string) => {
-    const project = projects.find((p) => p.id === projectId)
+    const project = projects.find((p) => p.id === projectId);
     if (project) {
       updateProject(
         projectId,
         "technologies",
-        project.technologies.filter((t) => t !== tech),
-      )
+        project.technologies.filter((t) => t !== tech)
+      );
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
@@ -82,10 +88,15 @@ export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
         </Card>
       ) : (
         <div className="space-y-4">
-          {projects.map((project) => (
-            <Card key={project.id}>
+          {projects.map((project, index) => (
+            <Card
+              key={project.id}
+              className={index % 2 === 0 ? "bg-blue-50/30" : "bg-green-50/30"}
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-                <CardTitle className="text-lg">{project.name || "New Project"}</CardTitle>
+                <CardTitle className="text-lg bg-violet-200 p-1 rounded-lg">
+                  Project {index + 1}: {project.name || "New Project"}
+                </CardTitle>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -98,42 +109,58 @@ export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor={`project-name-${project.id}`}>Project Name *</Label>
+                    <Label htmlFor={`project-name-${project.id}`}>
+                      Project Name *
+                    </Label>
                     <Input
                       id={`project-name-${project.id}`}
                       value={project.name}
-                      onChange={(e) => updateProject(project.id, "name", e.target.value)}
+                      onChange={(e) =>
+                        updateProject(project.id, "name", e.target.value)
+                      }
                       placeholder="My Awesome Project"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <Label htmlFor={`project-start-${project.id}`}>Start Date</Label>
+                      <Label htmlFor={`project-start-${project.id}`}>
+                        Start Date
+                      </Label>
                       <Input
                         id={`project-start-${project.id}`}
                         type="month"
                         value={project.startDate}
-                        onChange={(e) => updateProject(project.id, "startDate", e.target.value)}
+                        onChange={(e) =>
+                          updateProject(project.id, "startDate", e.target.value)
+                        }
                       />
                     </div>
                     <div>
-                      <Label htmlFor={`project-end-${project.id}`}>End Date</Label>
+                      <Label htmlFor={`project-end-${project.id}`}>
+                        End Date
+                      </Label>
                       <Input
                         id={`project-end-${project.id}`}
                         type="month"
                         value={project.endDate}
-                        onChange={(e) => updateProject(project.id, "endDate", e.target.value)}
+                        onChange={(e) =>
+                          updateProject(project.id, "endDate", e.target.value)
+                        }
                       />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor={`project-description-${project.id}`}>Description *</Label>
+                  <Label htmlFor={`project-description-${project.id}`}>
+                    Description *
+                  </Label>
                   <Textarea
                     id={`project-description-${project.id}`}
                     value={project.description}
-                    onChange={(e) => updateProject(project.id, "description", e.target.value)}
+                    onChange={(e) =>
+                      updateProject(project.id, "description", e.target.value)
+                    }
                     placeholder="Describe your project, its goals, and your role..."
                     rows={3}
                   />
@@ -148,7 +175,9 @@ export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
                     <Input
                       id={`project-link-${project.id}`}
                       value={project.link}
-                      onChange={(e) => updateProject(project.id, "link", e.target.value)}
+                      onChange={(e) =>
+                        updateProject(project.id, "link", e.target.value)
+                      }
                       placeholder="https://myproject.com"
                     />
                   </div>
@@ -160,7 +189,9 @@ export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
                     <Input
                       id={`project-github-${project.id}`}
                       value={project.github}
-                      onChange={(e) => updateProject(project.id, "github", e.target.value)}
+                      onChange={(e) =>
+                        updateProject(project.id, "github", e.target.value)
+                      }
                       placeholder="https://github.com/username/repo"
                     />
                   </div>
@@ -192,12 +223,17 @@ export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
                       placeholder="Add technology (e.g., React, Node.js)"
                       onKeyPress={(e) => {
                         if (e.key === "Enter") {
-                          e.preventDefault()
-                          addTechnology(project.id)
+                          e.preventDefault();
+                          addTechnology(project.id);
                         }
                       }}
                     />
-                    <Button type="button" variant="outline" size="sm" onClick={() => addTechnology(project.id)}>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => addTechnology(project.id)}
+                    >
                       Add
                     </Button>
                   </div>
@@ -208,5 +244,5 @@ export function ProjectsForm({ projects, onChange }: ProjectsFormProps) {
         </div>
       )}
     </div>
-  )
+  );
 }

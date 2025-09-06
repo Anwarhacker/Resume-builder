@@ -36,6 +36,9 @@ import { ConsultantTemplate } from "@/components/templates/consultant-template";
 import { SimpleTemplate } from "@/components/templates/simple-template";
 import { CleanTemplate } from "@/components/templates/clean-template";
 import { BasicTemplate } from "@/components/templates/basic-template";
+import { MonochromeProfessionalTemplate } from "@/components/templates/monochrome-professional-template";
+import { MinimalistBWTemplate } from "@/components/templates/minimalist-bw-template";
+import { ExecutiveBWTemplate } from "@/components/templates/executive-bw-template";
 import { AnimatedTemplatePreview } from "@/components/animated-template-preview";
 import { AnimatedFormSection } from "@/components/animated-form-section";
 import { PrintResumeButton } from "@/components/print-resume-button";
@@ -62,7 +65,10 @@ type TemplateType =
   | "consultant"
   | "simple"
   | "clean"
-  | "basic";
+  | "basic"
+  | "monochromepro"
+  | "minimalistbw"
+  | "executivebw";
 
 const templates = {
   modern: {
@@ -149,6 +155,21 @@ const templates = {
     name: "Basic",
     component: BasicTemplate,
     description: "Minimal formatting with inline text",
+  },
+  monochromepro: {
+    name: "Monochrome Professional",
+    component: MonochromeProfessionalTemplate,
+    description: "Clean black and white professional layout",
+  },
+  minimalistbw: {
+    name: "Minimalist B&W",
+    component: MinimalistBWTemplate,
+    description: "Typography-focused black and white design",
+  },
+  executivebw: {
+    name: "Executive B&W",
+    component: ExecutiveBWTemplate,
+    description: "Sophisticated executive black and white layout",
   },
 };
 
