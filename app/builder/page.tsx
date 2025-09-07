@@ -42,7 +42,14 @@ import { ExecutiveBWTemplate } from "@/components/templates/executive-bw-templat
 import { AnimatedTemplatePreview } from "@/components/animated-template-preview";
 import { AnimatedFormSection } from "@/components/animated-form-section";
 import { PrintResumeButton } from "@/components/print-resume-button";
-import { ArrowLeft, Eye, Palette, Sparkles, FileText, RotateCcw } from "lucide-react";
+import {
+  ArrowLeft,
+  Eye,
+  Palette,
+  Sparkles,
+  FileText,
+  RotateCcw,
+} from "lucide-react";
 import Link from "next/link";
 import type { ResumeData } from "@/lib/types";
 import { defaultResumeData } from "@/lib/types";
@@ -256,7 +263,12 @@ export default function BuilderPage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
             {/* Logo and Back button */}
             <div className="flex items-center gap-2 sm:gap-3">
-              <Button variant="ghost" size="sm" asChild className="px-1 sm:px-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="px-1 sm:px-2"
+              >
                 <Link href="/">
                   <ArrowLeft className="h-4 w-4" />
                   <span className="hidden md:inline ml-1">Back</span>
@@ -272,7 +284,10 @@ export default function BuilderPage() {
 
             {/* Action buttons */}
             <div className="flex items-center gap-1 w-full sm:w-auto justify-end">
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Button
                   variant="secondary"
                   size="sm"
@@ -284,7 +299,10 @@ export default function BuilderPage() {
                   <span className="hidden lg:inline ml-1">Example</span>
                 </Button>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Button
                   variant="outline"
                   size="sm"
@@ -296,7 +314,10 @@ export default function BuilderPage() {
                   <span className="hidden lg:inline ml-1">Reset</span>
                 </Button>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Button
                   variant="outline"
                   size="sm"
@@ -312,7 +333,10 @@ export default function BuilderPage() {
                   </span>
                 </Button>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <PrintResumeButton
                   resumeData={resumeData}
                   templateName={templates[selectedTemplate].name}
@@ -333,7 +357,7 @@ export default function BuilderPage() {
             <Palette className="h-4 w-4 text-primary" />
             <h3 className="text-sm sm:text-base font-semibold">Templates</h3>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-1 sm:gap-2">
+          <div className="grid grid-cols-3  sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-1 sm:gap-2">
             {Object.entries(templates).map(([key, template]) => (
               <motion.button
                 key={key}
@@ -415,25 +439,46 @@ export default function BuilderPage() {
                 <AnimatedFormSection delay={0.1}>
                   <Tabs defaultValue="personal" className="w-full">
                     <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 h-auto gap-0.5 sm:gap-1 p-0.5 sm:p-1">
-                      <TabsTrigger value="personal" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
+                      <TabsTrigger
+                        value="personal"
+                        className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap"
+                      >
                         Personal
                       </TabsTrigger>
-                      <TabsTrigger value="experience" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
+                      <TabsTrigger
+                        value="experience"
+                        className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap"
+                      >
                         Experience
                       </TabsTrigger>
-                      <TabsTrigger value="education" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
+                      <TabsTrigger
+                        value="education"
+                        className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap"
+                      >
                         Education
                       </TabsTrigger>
-                      <TabsTrigger value="projects" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
+                      <TabsTrigger
+                        value="projects"
+                        className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap"
+                      >
                         Projects
                       </TabsTrigger>
-                      <TabsTrigger value="skills" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
+                      <TabsTrigger
+                        value="skills"
+                        className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap"
+                      >
                         Skills
                       </TabsTrigger>
-                      <TabsTrigger value="certificates" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
+                      <TabsTrigger
+                        value="certificates"
+                        className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap"
+                      >
                         Certificates
                       </TabsTrigger>
-                      <TabsTrigger value="hobbies" className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap">
+                      <TabsTrigger
+                        value="hobbies"
+                        className="text-xs px-1 py-1.5 sm:px-2 sm:py-2 whitespace-nowrap"
+                      >
                         Hobbies
                       </TabsTrigger>
                     </TabsList>
