@@ -36,7 +36,7 @@ export default function HomePage() {
     "screenshot": "https://resumebuilder.com/og-image.jpg",
     "softwareVersion": "1.0",
     "datePublished": "2024-01-01",
-    "dateModified": new Date().toISOString().split('T')[0],
+    "dateModified": "2024-01-01",
     "inLanguage": "en-US",
     "isAccessibleForFree": true,
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
@@ -221,6 +221,75 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+        {/* Templates Section */}
+        <section id="templates" className="py-12 sm:py-16 lg:py-20 px-4 bg-card/30" aria-labelledby="templates-heading">
+          <div className="container mx-auto max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12 sm:mb-16"
+            >
+              <h2 id="templates-heading" className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold mb-3 sm:mb-4 px-4">
+                Choose from 18+ Professional Templates
+              </h2>
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground text-balance max-w-2xl mx-auto px-4">
+                From modern to classic designs, find the perfect template that matches your style and industry.
+              </p>
+            </motion.div>
+
+            <div className="flex overflow-x-auto overflow-y-hidden whitespace-nowrap gap-4 pb-4" style={{scrollbarWidth: 'thin'}}>
+              {[
+                { name: "Modern", description: "Clean design with gradient header", color: "bg-gradient-to-br from-blue-500 to-purple-600" },
+                { name: "Minimalist", description: "Simple and elegant layout", color: "bg-gray-100" },
+                { name: "Professional", description: "Corporate-style formatting", color: "bg-slate-800" },
+                { name: "Creative", description: "Colorful with unique elements", color: "bg-gradient-to-br from-pink-500 to-orange-500" },
+                { name: "Executive", description: "Bold black & white executive style", color: "bg-black" },
+                { name: "Classic", description: "Traditional centered layout", color: "bg-blue-600" },
+                { name: "Monochrome", description: "Tech-focused monospace design", color: "bg-gray-900" },
+                { name: "Corporate", description: "Structured sidebar layout", color: "bg-indigo-600" },
+                { name: "Elegant", description: "Serif fonts with clean lines", color: "bg-emerald-600" },
+                { name: "Timeline", description: "Visual timeline with progress bars", color: "bg-teal-600" },
+                { name: "Academic", description: "Formal centered design", color: "bg-purple-600" },
+                { name: "Consultant", description: "Sophisticated layout with gradient accents", color: "bg-gradient-to-br from-violet-500 to-purple-600" },
+                { name: "Modern Pro", description: "Colorful sections with timeline elements", color: "bg-gradient-to-br from-cyan-500 to-blue-600" },
+                { name: "Basic", description: "Minimal formatting with inline text", color: "bg-gray-400" },
+                { name: "Clean", description: "Light fonts with subtle borders", color: "bg-gray-200" },
+                { name: "Executive Pro", description: "Premium executive design with dark header", color: "bg-gradient-to-br from-gray-800 to-black" },
+                { name: "Simple", description: "Clean and straightforward layout", color: "bg-blue-400" },
+                { name: "Minimalist BW", description: "Black and white minimalist design", color: "bg-gradient-to-br from-gray-600 to-gray-800" }
+              ].map((template, index) => (
+                <motion.div
+                  key={template.name}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="flex-shrink-0 w-48 sm:w-56 md:w-64"
+                >
+                  <Card className="border-border/50 hover:border-primary/20 transition-all hover:shadow-lg h-full">
+                    <CardHeader className="p-4">
+                      <div className={`w-full h-24 sm:h-28 ${template.color} rounded-lg mb-3 flex items-center justify-center text-white text-xs font-medium shadow-sm`}>
+                        {template.name}
+                      </div>
+                      <CardTitle className="text-sm font-semibold truncate">{template.name}</CardTitle>
+                      <CardDescription className="text-xs line-clamp-2">{template.description}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="text-center mt-8">
+              <Button size="lg" asChild className="text-base px-6 py-3">
+                <Link href="/builder">
+                  <Palette className="mr-2 h-4 w-4" />
+                  Try All Templates
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section className="py-12 sm:py-16 lg:py-20 px-4" aria-labelledby="cta-heading">
