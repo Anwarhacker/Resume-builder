@@ -73,7 +73,7 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
                     <div>
                       <h3 className="text-sm font-bold">{work.position}</h3>
                       <div className="text-xs">
-                        {work.company} | {work.location}
+                        {work.company}
                       </div>
                     </div>
                     <div className="text-right text-xs">
@@ -105,7 +105,7 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
                 <div key={edu.id} className="grid grid-cols-2 gap-4">
                   <div>
                     <h3 className="font-bold text-xs">
-                      {edu.degree} {edu.field && `- ${edu.field}`}
+                      {edu.degree}
                     </h3>
                     <div className="text-xs">{edu.institution}</div>
                     {edu.gpa && <div className="text-xs">GPA: {edu.gpa}</div>}
@@ -128,22 +128,14 @@ export function MonochromeTemplate({ data }: MonochromeTemplateProps) {
               </h2>
             </div>
             <div className="grid grid-cols-1 gap-2">
-              {Object.entries(
-                skills.reduce((acc, skill) => {
-                  if (!acc[skill.category]) acc[skill.category] = [];
-                  acc[skill.category].push(skill);
-                  return acc;
-                }, {} as Record<string, typeof skills>)
-              ).map(([category, categorySkills]) => (
-                <div key={category} className="flex text-xs">
-                  <div className="w-24 font-bold">
-                    {category.toUpperCase()}:
-                  </div>
-                  <div>
-                    {categorySkills.map((skill) => skill.name).join(" | ")}
-                  </div>
+              <div className="flex text-xs">
+                <div className="w-24 font-bold">
+                  SKILLS:
                 </div>
-              ))}
+                <div>
+                  {skills.map((skill) => skill.name).join(" | ")}
+                </div>
+              </div>
             </div>
           </div>
         )}

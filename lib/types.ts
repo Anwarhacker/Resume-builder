@@ -13,18 +13,15 @@ export interface Education {
   id: string
   institution: string
   degree: string
-  field: string
   startDate: string
   endDate: string
   gpa?: string
-  description?: string
 }
 
 export interface WorkExperience {
   id: string
   company: string
   position: string
-  location: string
   startDate: string
   endDate: string
   current: boolean
@@ -46,7 +43,6 @@ export interface Skill {
   id: string
   name: string
   level: "Beginner" | "Intermediate" | "Advanced" | "Expert"
-  category: string
 }
 
 export interface Achievement {
@@ -63,8 +59,6 @@ export interface Certificate {
   issuer: string
   issueDate: string
   expiryDate?: string
-  credentialId?: string
-  link?: string
 }
 
 export interface Hobby {

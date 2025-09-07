@@ -22,7 +22,6 @@ export function WorkExperienceForm({
       id: Date.now().toString(),
       company: "",
       position: "",
-      location: "",
       startDate: "",
       endDate: "",
       current: false,
@@ -129,17 +128,7 @@ export function WorkExperienceForm({
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label>Location *</Label>
-                  <Input
-                    value={work.location}
-                    onChange={(e) =>
-                      updateWorkExperience(work.id, "location", e.target.value)
-                    }
-                    placeholder="San Francisco, CA"
-                  />
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Start Date *</Label>
                   <Input

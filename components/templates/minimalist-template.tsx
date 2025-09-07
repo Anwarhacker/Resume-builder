@@ -63,7 +63,7 @@ export function MinimalistTemplate({ data }: MinimalistTemplateProps) {
                   <div>
                     <h3 className="text-sm font-medium">{work.position}</h3>
                     <div className="text-gray-600 text-xs">
-                      {work.company}, {work.location}
+                      {work.company}
                     </div>
                   </div>
                   <div className="text-xs text-gray-500 font-light">
@@ -94,7 +94,7 @@ export function MinimalistTemplate({ data }: MinimalistTemplateProps) {
               <div key={edu.id} className="flex justify-between items-baseline">
                 <div>
                   <h3 className="font-medium text-xs">
-                    {edu.degree} {edu.field && `in ${edu.field}`}
+                    {edu.degree}
                   </h3>
                   <div className="text-gray-600 text-xs">{edu.institution}</div>
                   {edu.gpa && (
@@ -116,23 +116,8 @@ export function MinimalistTemplate({ data }: MinimalistTemplateProps) {
           <h2 className="text-sm font-light tracking-wide mb-3 text-gray-800">
             SKILLS
           </h2>
-          <div className="space-y-1">
-            {Object.entries(
-              skills.reduce((acc, skill) => {
-                if (!acc[skill.category]) acc[skill.category] = [];
-                acc[skill.category].push(skill);
-                return acc;
-              }, {} as Record<string, typeof skills>)
-            ).map(([category, categorySkills]) => (
-              <div key={category} className="flex items-start gap-2">
-                <div className="font-medium text-gray-700 min-w-[80px] text-xs">
-                  {category}:
-                </div>
-                <div className="text-gray-600 text-xs">
-                  {categorySkills.map((skill) => skill.name).join(", ")}
-                </div>
-              </div>
-            ))}
+          <div className="text-gray-600 text-xs">
+            {skills.map((skill) => skill.name).join(", ")}
           </div>
         </div>
       )}

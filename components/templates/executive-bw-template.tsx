@@ -75,7 +75,7 @@ export function ExecutiveBWTemplate({ data }: ExecutiveBWTemplateProps) {
                       <div>
                         <h3 className="text-sm font-bold">{work.position}</h3>
                         <div className="text-xs text-gray-600 font-semibold">
-                          {work.company} | {work.location}
+                          {work.company}
                         </div>
                       </div>
                       <div className="text-xs text-gray-500 font-medium">
@@ -110,7 +110,7 @@ export function ExecutiveBWTemplate({ data }: ExecutiveBWTemplateProps) {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="text-sm font-bold">
-                          {edu.degree} {edu.field && `in ${edu.field}`}
+                          {edu.degree}
                         </h3>
                         <div className="text-xs text-gray-600 font-semibold">{edu.institution}</div>
                         {edu.gpa && <div className="text-xs text-gray-500">GPA: {edu.gpa}</div>}
@@ -186,26 +186,13 @@ export function ExecutiveBWTemplate({ data }: ExecutiveBWTemplateProps) {
               <h2 className="text-sm font-bold mb-3 tracking-widest border-b border-black pb-1">
                 CORE COMPETENCIES
               </h2>
-              <div className="space-y-3">
-                {Object.entries(
-                  skills.reduce((acc, skill) => {
-                    if (!acc[skill.category]) acc[skill.category] = [];
-                    acc[skill.category].push(skill);
-                    return acc;
-                  }, {} as Record<string, typeof skills>)
-                ).map(([category, categorySkills]) => (
-                  <div key={category}>
-                    <h4 className="text-xs font-bold mb-1">{category.toUpperCase()}</h4>
-                    <div className="space-y-1">
-                      {categorySkills.map((skill) => (
-                        <div key={skill.id} className="text-xs">
-                          <div className="font-medium">{skill.name}</div>
-                          {skill.level && (
-                            <div className="text-gray-500 text-xs">({skill.level})</div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
+              <div className="space-y-1">
+                {skills.map((skill) => (
+                  <div key={skill.id} className="text-xs">
+                    <div className="font-medium">{skill.name}</div>
+                    {skill.level && (
+                      <div className="text-gray-500 text-xs">({skill.level})</div>
+                    )}
                   </div>
                 ))}
               </div>

@@ -22,8 +22,6 @@ export function CertificatesForm({
       issuer: "",
       issueDate: "",
       expiryDate: "",
-      credentialId: "",
-      link: "",
     };
     onChange([...certificates, newCertificate]);
   };
@@ -133,38 +131,6 @@ export function CertificatesForm({
                       e.target.value
                     )
                   }
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor={`cert-id-${certificate.id}`}>
-                  Credential ID (Optional)
-                </Label>
-                <Input
-                  id={`cert-id-${certificate.id}`}
-                  value={certificate.credentialId}
-                  onChange={(e) =>
-                    updateCertificate(
-                      certificate.id,
-                      "credentialId",
-                      e.target.value
-                    )
-                  }
-                  placeholder="ABC123XYZ"
-                />
-              </div>
-              <div>
-                <Label htmlFor={`cert-link-${certificate.id}`}>
-                  Verification Link (Optional)
-                </Label>
-                <Input
-                  id={`cert-link-${certificate.id}`}
-                  value={certificate.link}
-                  onChange={(e) =>
-                    updateCertificate(certificate.id, "link", e.target.value)
-                  }
-                  placeholder="https://verify.example.com"
                 />
               </div>
             </div>

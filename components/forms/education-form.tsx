@@ -18,11 +18,9 @@ export function EducationForm({ data, onChange }: EducationFormProps) {
       id: Date.now().toString(),
       institution: "",
       degree: "",
-      field: "",
       startDate: "",
       endDate: "",
       gpa: "",
-      description: "",
     };
     onChange([...data, newEducation]);
   };
@@ -100,17 +98,7 @@ export function EducationForm({ data, onChange }: EducationFormProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label>Field of Study *</Label>
-                  <Input
-                    value={edu.field}
-                    onChange={(e) =>
-                      updateEducation(edu.id, "field", e.target.value)
-                    }
-                    placeholder="Computer Science"
-                  />
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Start Date *</Label>
                   <Input
@@ -133,28 +121,14 @@ export function EducationForm({ data, onChange }: EducationFormProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>GPA (Optional)</Label>
-                  <Input
-                    value={edu.gpa || ""}
-                    onChange={(e) =>
-                      updateEducation(edu.id, "gpa", e.target.value)
-                    }
-                    placeholder="3.8/4.0"
-                  />
-                </div>
-              </div>
-
               <div className="space-y-2">
-                <Label>Description (Optional)</Label>
-                <Textarea
-                  value={edu.description || ""}
+                <Label>GPA (Optional)</Label>
+                <Input
+                  value={edu.gpa || ""}
                   onChange={(e) =>
-                    updateEducation(edu.id, "description", e.target.value)
+                    updateEducation(edu.id, "gpa", e.target.value)
                   }
-                  placeholder="Relevant coursework, honors, activities..."
-                  rows={3}
+                  placeholder="3.8/4.0"
                 />
               </div>
             </div>

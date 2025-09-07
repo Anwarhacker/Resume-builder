@@ -64,7 +64,7 @@ export function MinimalistBWTemplate({ data }: MinimalistBWTemplateProps) {
                     <div>
                       <h3 className="text-sm font-medium">{work.position}</h3>
                       <div className="text-xs text-gray-600 italic">
-                        {work.company}, {work.location}
+                        {work.company}
                       </div>
                     </div>
                     <div className="text-xs text-gray-500 font-light">
@@ -99,7 +99,7 @@ export function MinimalistBWTemplate({ data }: MinimalistBWTemplateProps) {
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-sm font-medium">
-                        {edu.degree} {edu.field && `in ${edu.field}`}
+                        {edu.degree}
                       </h3>
                       <div className="text-xs text-gray-600 italic">{edu.institution}</div>
                       {edu.gpa && <div className="text-xs text-gray-500">GPA: {edu.gpa}</div>}
@@ -120,23 +120,8 @@ export function MinimalistBWTemplate({ data }: MinimalistBWTemplateProps) {
             <h2 className="text-lg font-light mb-6 tracking-widest border-b border-gray-300 pb-2">
               SKILLS
             </h2>
-            <div className="space-y-3">
-              {Object.entries(
-                skills.reduce((acc, skill) => {
-                  if (!acc[skill.category]) acc[skill.category] = [];
-                  acc[skill.category].push(skill);
-                  return acc;
-                }, {} as Record<string, typeof skills>)
-              ).map(([category, categorySkills]) => (
-                <div key={category}>
-                  <h4 className="text-xs font-medium mb-2 text-gray-700">
-                    {category}
-                  </h4>
-                  <div className="text-xs text-gray-600 leading-relaxed">
-                    {categorySkills.map((skill) => skill.name).join(" • ")}
-                  </div>
-                </div>
-              ))}
+            <div className="text-xs text-gray-600 leading-relaxed">
+              {skills.map((skill) => skill.name).join(" • ")}
             </div>
           </div>
         )}

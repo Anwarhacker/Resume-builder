@@ -25,7 +25,6 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
       id: Date.now().toString(),
       name: "",
       level: "Intermediate",
-      category: "Technical",
     };
     onChange([...data, newSkill]);
   };
@@ -91,17 +90,6 @@ export function SkillsForm({ data, onChange }: SkillsFormProps) {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label className="text-xs">Category *</Label>
-                  <Input
-                    value={skill.category}
-                    onChange={(e) =>
-                      updateSkill(skill.id, "category", e.target.value)
-                    }
-                    placeholder="Technical, Soft Skills, etc."
-                    className="h-8"
-                  />
-                </div>
 
                 <div className="space-y-2">
                   <Label className="text-xs">Proficiency Level *</Label>
